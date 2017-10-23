@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pencari tempat makan</title>
+</head>
+<body>
+	<table id="table-restaurant">
+		<tr>
+			<th>No.</th>
+			<th>Restaurant</th>
+		</tr>
+	</table>
+	
+	<form action="" id="form-search">
+		<input type="search" name="search" placeholder="Search nearby restaurants here...">
+		<button>Search</button>
+	</form>
+
+	<script src="jquery-3.2.1.min.js"></script>
+	<script>
+		var formSearch = $('#form-search');
+		formSearch.submit(function(event) {
+			// ketika form di submit akan jalanin function ini
+			event.preventDefault();
+			$.get('restaurants.php?q=' + event.target.search.value)
+			.then(function(result) {
+				for (var i = 0; i < result.length; i++)
+					$('body').append(`<div>${result[i].name}</div>`);
+			});
+		});
+	</script>
+</body>
+</html>
